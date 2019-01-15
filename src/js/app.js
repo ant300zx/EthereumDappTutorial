@@ -70,10 +70,11 @@ App = {
   
       // Load contract data
       App.contracts.Election.deployed().then(function(instance) {
+        var candidatesResults = "";
         electionInstance = instance;
         return electionInstance.candidatesCount();
       }).then(function(candidatesCount) {
-        var candidatesResults = $("#candidatesResults");
+        candidatesResults = $("#candidatesResults");
         candidatesResults.empty();
   
         var candidatesSelect = $('#candidatesSelect');
@@ -81,6 +82,7 @@ App = {
   
         for (var i = 1; i <= candidatesCount; i++) {
           electionInstance.candidates(i).then(function(candidate) {
+
             var id = candidate[0];
             var name = candidate[1];
             var voteCount = candidate[2];
